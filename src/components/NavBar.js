@@ -2,58 +2,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Form from 'react-bootstrap/Form';
+import { useEffect } from 'react';
 
 function NavBar(props) {
-const { mode, toggleMode} = props
-const storageKey = 'theme-preference'
+  const { mode, toggleMode } = props
+  useEffect(() => {
+    document.body.style.background = mode === 'dark' ? 'dark' : 'light';
+  }, [mode]);
 
-const onClick = () => {
-    theme.value = theme.value === 'light' ? 'dark' : 'light'
-    toggleMode();
-    setPreference()
-}
-
-const getColorPreference = () => {
-    if (localStorage.getItem(storageKey))
-        return localStorage.getItem(storageKey)
-    else
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
-const setPreference = () => {
-    localStorage.setItem(storageKey, theme.value)
-    reflectPreference()
-}
-
-const reflectPreference = () => {
-    document.firstElementChild
-        .setAttribute('data-theme', theme.value)
-
-    document
-        .querySelector('#theme-toggle')
-        ?.setAttribute('aria-label', theme.value)
-}
-
-const theme = {
-    value: getColorPreference(),
-}
-
-reflectPreference()
-
-window.onload = () => {
-    reflectPreference()
-
-    document
-        .querySelector('#theme-toggle')
-        .addEventListener('click', onClick)
-}
-window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', ({ matches: isDark }) => {
-        theme.value = isDark ? 'dark' : 'light'
-        setPreference()
-    })   
   return (
     <>
       <Navbar bg={mode} data-bs-theme={mode} expand="lg" className="bg-body-tertiary fixed-top">
@@ -69,29 +26,96 @@ window
             <Nav.Link href="/sports">Sports</Nav.Link>
             <Nav.Link href="/technology">Technology</Nav.Link>
           </Nav>
-          <button className="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
-            <svg className="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-              <mask className="moon" id="moon-mask">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <circle cx="24" cy="10" r="6" fill="black" />
-              </mask>
-              <circle className="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
-              <g className="sun-beams" stroke="currentColor">
-                <line x1="12" y1="1" x2="12" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="23" />
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                <line x1="1" y1="12" x2="3" y2="12" />
-                <line x1="21" y1="12" x2="23" y2="12" />
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-              </g>
-            </svg>
-          </button>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            onClick={toggleMode}
+          /><h6 style={{ color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</h6>
         </Container>
       </Navbar>
     </>
   );
 }
 
-export default NavBar
+export default NavBar;
+
+
+// import React from 'react';
+// import { Link } from "react-router-dom";
+
+// function NavBar(props) {
+//   const { mode, toggleMode } = props;
+
+//   return (
+//     <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode} fixed-top`}>
+//       <div className="container-fluid">
+//         <a className="navbar-brand" to="/">
+//           News Paper
+//         </a>
+//         <button
+//           className="navbar-toggler"
+//           type="button"
+//           data-bs-toggle="collapse"
+//           data-bs-target="#navbarSupportedContent"
+//           aria-controls="navbarSupportedContent"
+//           aria-expanded="false"
+//           aria-label="Toggle navigation"
+//         >
+//           <span className="navbar-toggler-icon"></span>
+//         </button>
+//         <div className="collapse navbar-collapse" id="navbarSupportedContent">
+//           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+//             <li className="nav-item">
+//               <Link className="nav-link active" to="/">Home</Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/business">Business</Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/entertainment">
+//                 Entertainment
+//               </Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/general">
+//                 General
+//               </Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/health">Health</Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/science">
+//                 Science
+//               </Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/sports">
+//                 Sports
+//               </Link>
+//             </li>
+//             <li className="nav-item">
+//               <Link className="nav-link" to="/technology">
+//                 Technology
+//               </Link>
+//             </li>
+//           </ul>
+//           <div className="form-check form-switch">
+//             <input
+//               className="form-check-input"
+//               type="checkbox"
+//               role="switch"
+//               id="flexSwitchCheckDefault"
+//               onClick={toggleMode}
+//             />
+//             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+//               {mode === 'dark' ? 'Light Mode' : 'Dark Mode'}
+//             </label>
+//           </div>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// }
+
+// export default NavBar;

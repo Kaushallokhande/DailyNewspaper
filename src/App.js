@@ -20,27 +20,27 @@ const App = () => {
   let apikey = "2f7fdd29a39e4ba59c0013028469f191";
   let country = 'in'
   const [progress, setProgress] = useState(0);
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
+
   const toggleMode = () => {
-    if (mode === 'dark') {
-      setMode('light');
-      document.body.style.background = 'light'
-    } else {
-      setMode('dark');
-      document.body.style.background = 'dark'
-    }
-  }
+    const currentMode = localStorage.getItem('mode');
+    const newMode = currentMode === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('mode', newMode);
+    setMode(newMode);
+    document.body.style.background = newMode === 'dark' ? 'dark' : 'light';
+  };
+
 
   return (
     <div>
       <Router>
-        <NavBar mode={mode} toggleMode={toggleMode}/>
+        <NavBar mode={mode} toggleMode={toggleMode} />
         <LoadingBar
           color='#f11946'
           progress={progress}
         />
         <Switch>
-          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" /></Route>
+          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" mode={mode} /></Route>
           <Route exact path="/business"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="business" head=": Business" /></Route>
           <Route exact path="/entertainment"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="entertainment" head=": Entertainment" /></Route>
           <Route exact path="/general"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head=": General" /></Route>
@@ -52,7 +52,6 @@ const App = () => {
       </Router>
     </div>
   )
-
 }
 
 export default App
