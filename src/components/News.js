@@ -6,8 +6,7 @@ import Spinner from './Spinner';
 
 
 const News = (props) => {
-    const { mode } = props;
-    const [articles, setArticles] = useState([0]);
+    const { mode, articles, setArticles } = props;
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
@@ -15,10 +14,6 @@ const News = (props) => {
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-
-    useEffect(() => {
-        document.body.style.background = mode === 'dark' ? 'dark' : 'light';
-    }, [mode]);
 
     const updateNew = async () => {
         try {
@@ -56,8 +51,8 @@ const News = (props) => {
     };
 
     return (
-        <div className='container my-3' style={{ backgroundColor: mode === 'dark' ? '#080808' : '#f8f9fa' }}>
-            <h2 className='text-center' style={{ padding: '60px 0 0 0', color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>NewsPaper{props.head}</h2>
+        <div className='container my-3' style={{ backgroundColor: mode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)'}}>
+            <h2 className='text-center' style={{ padding: '60px 0 0 0', color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>Top headlines{props.head}</h2>
             {loading && <Spinner />}
             <InfiniteScroll
                 dataLength={articles.length}
@@ -65,7 +60,7 @@ const News = (props) => {
                 hasMore={articles.length !== totalResults}
                 loader={<Spinner />}
             >
-                <div className='container'>
+                <div className='container' >
                     <div className='row'>
                         {articles.map((e) => {
 
