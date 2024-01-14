@@ -7,23 +7,23 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function NavBar(props) {
-  const { mode, toggleMode, articles, setArticles} = props
+  const { mode, toggleMode, articles, setArticles } = props
   const temp = articles
   const onChange = (e) => {
     const searchValue = e.target.value;
     console.log(searchValue);
 
     if (searchValue === "") {
-        setArticles(temp);
-        return;
+      setArticles(temp);
+      return;
     }
 
     const filteredData = articles?.filter((news) =>
-        news.title.toLowerCase().includes(searchValue.toLowerCase())
+      news.title.toLowerCase().includes(searchValue.toLowerCase())
     );
 
     setArticles(filteredData);
-};
+  };
 
   return (
     <>
@@ -43,23 +43,19 @@ function NavBar(props) {
             <NavDropdown.Item href="/">Some other</NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        <Form inline>
-          <Row>
-            <Col xs="auto">
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                className=" mr-sm-2"
-                onChange={onChange}
-              />
-            </Col>
-          </Row>
-        </Form>
+
+        {/* Search bar */}
+        <form action='' style={{padding: '0 8px 0 0'}}>
+          <input type="text"
+            placeholder="Search" onChange={onChange}></input>
+        </form>
+
         <Form.Check
           type="switch"
           id="custom-switch"
           onClick={toggleMode}
         /><h6 style={{ color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</h6>
+
       </Navbar>
     </>
   );

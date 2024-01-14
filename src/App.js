@@ -13,7 +13,7 @@ import {
   Route
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
-
+import BackToTopButton from './components/BackToTopButton';
 
 const App = () => {
   let pageSize = 9;
@@ -32,26 +32,27 @@ const App = () => {
     document.body.style.background = newMode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
   };
 
-  
+
 
   return (
     <div>
       <Router>
-        <NavBar mode={mode} toggleMode={toggleMode} articles ={articles} setArticles = {setArticles}/>
+        <NavBar mode={mode} toggleMode={toggleMode} articles={articles} setArticles={setArticles} />
         <LoadingBar
           color='#f11946'
           progress={progress}
         />
         <Switch>
-          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" mode={mode} articles ={articles} setArticles = {setArticles} /></Route>
-          <Route exact path="/business"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="business" head=": Business" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/entertainment"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="entertainment" head=": Entertainment" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/general"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head=": General" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/health"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="health" head=": Health" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/science"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="science" head=": Science" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/sports"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="sports" head=": Sports" articles ={articles} setArticles = {setArticles}/></Route>
-          <Route exact path="/technology"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="technology" head=": Technology" articles ={articles} setArticles = {setArticles}/></Route>
+          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" mode={mode} articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/business"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="business" head=": Business" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/entertainment"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="entertainment" head=": Entertainment" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/general"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head=": General" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/health"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="health" head=": Health" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/science"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="science" head=": Science" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/sports"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="sports" head=": Sports" articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/technology"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="technology" head=": Technology" articles={articles} setArticles={setArticles} /></Route>
         </Switch>
+        <BackToTopButton />
       </Router>
     </div>
   )
