@@ -20,9 +20,9 @@ const BackToTopButton = () => {
   }
 
   return (
-    <button id="backToTopBtn" onClick={scrollToTop}>
-      Back to Top
-    </button>
+    <>
+      <button id="backToTopBtn" onClick={scrollToTop}>➔</button>
+    </>
   );
 };
 
