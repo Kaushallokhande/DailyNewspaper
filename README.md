@@ -1,6 +1,6 @@
 # React News App
 
-![App Screenshot](path/to/app-screenshot.png)
+![App Screenshot](public/NewsPaper.png)
 
 ## Description
 
