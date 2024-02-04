@@ -1,6 +1,6 @@
 # React News App
 
-![App Screenshot](public/NewsPaper.png)
+![App Screenshot](public/Main.png)
 
 ## Description
 
@@ -47,8 +47,7 @@ let apikey = "YOUR_NEWS_API_KEY";
 
 ## Screenshots
 
-![Screenshot 1](path/to/screenshot1.png)
-![Screenshot 2](path/to/screenshot2.png)
+![Screenshot 1](public/Categories.png)
 
 ## Contributing
 
