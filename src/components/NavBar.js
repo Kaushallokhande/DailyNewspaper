@@ -1,13 +1,12 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Toggle from './Toggle';
+import { useEffect, useState } from 'react';
 
 function NavBar(props) {
-  const { mode, toggleMode, articles, setArticles } = props
+  const { articles, setArticles, isDark, setDark } = props
   const temp = articles
   const onChange = (e) => {
     const searchValue = e.target.value;
@@ -25,9 +24,25 @@ function NavBar(props) {
     setArticles(filteredData);
   };
 
+  const handleChange = () => {
+    setDark(!isDark);
+  }
+  const [mode, setMode] = useState("dark");
+
+  useEffect(() => {
+    if (isDark) {
+      setMode("light");
+    } else {
+      setMode("dark");
+    }
+    // console.log(mode);
+
+  }, [isDark])
+
+
   return (
     <>
-      <Navbar bg={mode} data-bs-theme={mode} expand="lg" className="bg-body-tertiary fixed-top" style={{ padding: '7px 15px 7px 10px' }}>
+      <Navbar bg={mode === "light" ? "dark" : "light"} data-bs-theme={mode === "light" ? "dark" : "light"} expand="lg" className="bg-body-tertiary fixed-top" style={{ padding: '7px 15px 7px 10px' }}>
         <Navbar.Brand href="/">News Paper</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
@@ -45,17 +60,12 @@ function NavBar(props) {
         </Nav>
 
         {/* Search bar */}
-        <form action='' style={{padding: '0 8px 0 0'}}>
+        <form action='' style={{ padding: '0 8px 0 0' }}>
           <input type="text"
             placeholder="Search" onChange={onChange}></input>
         </form>
 
-        <Form.Check
-          type="switch"
-          id="custom-switch"
-          onClick={toggleMode}
-        /><h6 style={{ color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</h6>
-
+        <Toggle isChecked={isDark} handleChange={handleChange} />
       </Navbar>
     </>
   );

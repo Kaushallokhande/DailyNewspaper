@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 
 
 const News = (props) => {
-    const { mode, articles, setArticles } = props;
+    const { isDark, articles, setArticles } = props;
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
@@ -14,6 +14,7 @@ const News = (props) => {
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
 
     const updateNew = async () => {
         try {
@@ -51,8 +52,8 @@ const News = (props) => {
     };
 
     return (
-        <div className='container my-3' style={{ backgroundColor: mode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)'}}>
-            <h2 className='text-center' style={{ padding: '60px 0 0 0', color: mode === 'dark' ? '#f8f9fa' : '#343a40' }}>Top headlines{props.head}</h2>
+        <div className='container my-3' >
+            <h2 className='text-center' id='heading'>Top headlines{props.head}</h2>
             {loading && <Spinner />}
             <InfiniteScroll
                 dataLength={articles.length}
@@ -73,7 +74,7 @@ const News = (props) => {
                                         imageurl={e.urlToImage ? e.urlToImage : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAACUCAMAAADlP0YdAAAAXVBMVEXDw8MAAADKysqGhobHx8dycnJtbW2lpaXOzs4oKCglJSViYmK9vb1qampPT0+wsLCQkJCWlpadnZ0bGxsKCgo8PDxGRkaAgIBcXFwSEhJUVFQ2NjZ5eXkwMDAXFxcUuSY4AAAB60lEQVR4nO3Y226jMBRAUeIcCqGAXXJp0qb9/88ch8skXEY1fZgcS3s9VZEqeQtsbCcJAAAAAAAAAAAAAAAAAAAAAHVMvpYxzx7zsjKtXtZKy2ePeonZbn5hq/G5+JR6u1KtNiWVlVK9Ke0ffoih/6M7RZKssaHjU51i7MeuOLrAAWpOEXu8rUuHwBbVKe/dGvsR9r3QnJJUXcqnDZr6qlOuXcppnmLMvE5zimT7NuU6H/bbSzb7UXNKIq7wJWk5HbX4bc1+1qI6xa9hbtsks5L2aX1OFwPdKbeP/exFEuneuzof/648ZYm8Lm+E40sxbtjTT6ZLdClid3/PJ6fRghBHyn3GSHl8OGudo0sx1g1fybwanRsft2cxpBi/rew3L/nb+Ai8fzgCRJAiZe0HvbuliP2aHOfr+3SJIKXfVVZ+zG3UWBVRSt4vvgcnJl24ZnHDl1J9ipSHfsxfNlso2RyGV0x7iiT3xfe0VLLZHPtNmvqUpXdq4hpFijSXn1O+m7ZFd4qUASXDdFGe8o/pMXVSnzJcufzsXXSnmOw7NOW231ecIrYILfH7Gqv5+tu482uwszOKU4Kv8DuKn8qlWOmiM0WaYrda0ax8kP+HZL+gsqS7AVvr2WMGAAAAAAAAAAAAAAAAAADAs/0B6LcaZlErLnYAAAAASUVORK5CYII='}
                                         readUrl={e.url}
                                         author={e.author ? e.author : 'Unknown'}
-                                        publishedAt={e.publishedAt ? e.publishedAt : 'not avaliable'} mode={mode}
+                                        publishedAt={e.publishedAt ? e.publishedAt : 'not avaliable'} isDark={isDark}
                                     />
                                     <br />
                                 </div>
@@ -105,3 +106,4 @@ News.propTypes = {
 };
 
 export default News
+// isDark === 'dark' ? '#f8f9fa' : '#343a40'

@@ -2,6 +2,7 @@
 //npm install react-bootstrap bootstrap
 //npm i react-infinite-scroll-component
 //npm i react-top-loading-bar
+//npm i local-user-storage
 
 import React, { useState } from 'react'
 import NavBar from './components/NavBar';
@@ -14,36 +15,29 @@ import {
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
 import BackToTopButton from './components/BackToTopButton';
+import useLocalStorage from 'use-local-storage'
 
 const App = () => {
   let pageSize = 9;
   let apikey = "2f7fdd29a39e4ba59c0013028469f191";
   let country = 'in'
   const [progress, setProgress] = useState(0);
-  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
+  const [isDark, setDark] = useLocalStorage("isDark", false);
   const [articles, setArticles] = useState([0]);
 
 
-  const toggleMode = () => {
-    const currentMode = localStorage.getItem('mode');
-    const newMode = currentMode === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('mode', newMode);
-    setMode(newMode);
-    document.body.style.background = newMode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
-  };
-
-
-
   return (
-    <div>
+    <div className='App' data-theme={isDark ? 'dark' : 'light'}>
       <Router>
-        <NavBar mode={mode} toggleMode={toggleMode} articles={articles} setArticles={setArticles} />
+
+        <NavBar isDark={isDark} articles={articles} setArticles={setArticles} setDark={setDark} />
         <LoadingBar
           color='#f11946'
           progress={progress}
         />
+
         <Switch>
-          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" mode={mode} articles={articles} setArticles={setArticles} /></Route>
+          <Route exact path="/"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head="" isDark={isDark} articles={articles} setArticles={setArticles} setDark={setDark} /></Route>
           <Route exact path="/business"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="business" head=": Business" articles={articles} setArticles={setArticles} /></Route>
           <Route exact path="/entertainment"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="entertainment" head=": Entertainment" articles={articles} setArticles={setArticles} /></Route>
           <Route exact path="/general"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="general" head=": General" articles={articles} setArticles={setArticles} /></Route>
