@@ -1,4 +1,4 @@
-# React News App
+# Headlines Hub
 
 ![App Screenshot](public/Main.png)
 
