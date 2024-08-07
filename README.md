@@ -1,4 +1,4 @@
-# React News App
+# Headlines Hub
 
 ![App Screenshot](public/Main.png)
 
@@ -21,6 +21,9 @@ This is a React-based news application that allows users to explore news article
 - React Infinite Scroll Component
 - React Top Loading Bar
 
+## Demo
+
+For a demo, visit [React News App](https://www.youtube.com/watch?v=vvWJPjjEmIE).
 ## Installation
 
 ```bash
