@@ -2,7 +2,7 @@
 //npm install react-bootstrap bootstrap
 //npm i react-infinite-scroll-component
 //npm i react-top-loading-bar
-//npm i local-user-storage
+//npm i use-local-storage
 
 import React, { useState } from 'react'
 import NavBar from './components/NavBar';
@@ -27,8 +27,8 @@ const App = () => {
 
 
   return (
-    <div className='App' data-theme={isDark ? 'dark' : 'light'}>
-      <Router>
+    <Router>
+      <div className='App' data-theme={isDark ? 'dark' : 'light'}>
 
         <NavBar isDark={isDark} articles={articles} setArticles={setArticles} setDark={setDark} />
         <LoadingBar
@@ -47,8 +47,8 @@ const App = () => {
           <Route exact path="/technology"><News setProgress={setProgress} apikey={apikey} pageSize={pageSize} country={country} category="technology" head=": Technology" articles={articles} setArticles={setArticles} /></Route>
         </Switch>
         <BackToTopButton />
-      </Router>
-    </div>
+      </div>
+    </Router>
   )
 }
 

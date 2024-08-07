@@ -7,7 +7,18 @@ import { useEffect, useState } from 'react';
 
 function NavBar(props) {
   const { articles, setArticles, isDark, setDark } = props
-  const temp = articles
+  const temp = articles;
+
+  const debounce = (fn, timeout = 500) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, timeout);
+    };
+  };
+  
   const onChange = (e) => {
     const searchValue = e.target.value;
     console.log(searchValue);
@@ -62,7 +73,7 @@ function NavBar(props) {
         {/* Search bar */}
         <form action='' style={{ padding: '0 8px 0 0' }}>
           <input type="text"
-            placeholder="Search" onChange={onChange}></input>
+            placeholder="Search" onChange={debounce(onChange,300)}></input>
         </form>
 
         <Toggle isChecked={isDark} handleChange={handleChange} />
